@@ -1,10 +1,22 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {Alert, Linking, Platform, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {Avatar, Button, Card, Title, Paragraph} from 'react-native-paper';
 
 // const LeftContent = props => <Avatar.Icon {...props} icon="folder" />;
 const RenderList = ({item}) => {
   const LeftContent = props => <Avatar.Text {...props} label={item.name} />;
+  const openDial = async phone => {
+    console.log('item.phone->', phone);
+    try {
+      if (Platform.OS === 'android') {
+        Linking.openURL(`tel:${phone}`);
+      } else {
+        Linking.openURL(`telprompt:${phone}`);
+      }
+    } catch (error) {
+      Alert.alert('', 'Something wrong!');
+    }
+  };
   return (
     <>
       <Card style={styles.card}>
@@ -21,7 +33,7 @@ const RenderList = ({item}) => {
         <Card.Cover source={{uri: item.image}} />
         <Card.Actions>
           <Button>{item.price}</Button>
-          <Button>Call Seller</Button>
+          <Button onPress={() => openDial(item.phone)}>Call Seller</Button>
         </Card.Actions>
       </Card>
     </>
