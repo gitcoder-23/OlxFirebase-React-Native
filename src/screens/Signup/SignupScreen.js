@@ -42,7 +42,7 @@ const SignupScreen = ({navigation}) => {
       <View
         style={{backgroundColor: '#fff', flex: 1, justifyContent: 'center'}}>
         <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'height' : 'position'}>
+          behavior={Platform.OS === 'ios' ? 'height' : 'height'}>
           <View style={styles.box1}>
             <Image
               source={require('../../assets/OLX-Logos.png')}
