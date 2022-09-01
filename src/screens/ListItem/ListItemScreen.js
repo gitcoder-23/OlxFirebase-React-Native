@@ -1,8 +1,11 @@
 import {FlatList, StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import RenderList from './RenderList';
+import firestore from '@react-native-firebase/firestore';
 
 const ListItemScreen = () => {
+  const [allItems, setAllItems] = useState([]);
+  const [isLoading] = useState(false);
   const myItems = [
     {
       id: 1,
@@ -23,12 +26,34 @@ const ListItemScreen = () => {
       desc: 'I am selling Camera',
     },
   ];
+
+  const getDetails = async () => {
+    const querySnap = await firestore().collection('ads').get();
+    // get array
+    const result = querySnap.docs.map(docSnap => docSnap.data());
+    // console.log('result-List->', result);
+    if (result) {
+      setAllItems(result);
+    } else {
+      setAllItems([]);
+    }
+  };
+
+  // console.log('allItems->', allItems);
+
+  useEffect(() => {
+    getDetails();
+    return () => {
+      console.log('Cleanup');
+    };
+  }, []);
+
   return (
     <View>
       <FlatList
         showsVerticalScrollIndicator={false}
-        data={myItems}
-        keyExtractor={item => (item.id ? item.id.toString() : '')}
+        data={Object.keys(allItems).length > 0 ? allItems : []}
+        keyExtractor={(item, index) => index.toString()}
         renderItem={({item, idx}) => {
           return (
             <>
@@ -36,6 +61,7 @@ const ListItemScreen = () => {
             </>
           );
         }}
+        refreshing={isLoading}
       />
     </View>
   );

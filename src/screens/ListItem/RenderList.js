@@ -20,7 +20,7 @@ const RenderList = ({item}) => {
         </Card.Content>
         <Card.Cover source={{uri: item.image}} />
         <Card.Actions>
-          <Button>200</Button>
+          <Button>{item.price}</Button>
           <Button>Call Seller</Button>
         </Card.Actions>
       </Card>
