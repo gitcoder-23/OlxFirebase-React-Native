@@ -36,6 +36,12 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
+
+	<!-- for react-native-image-picker camera -->
+	<!-- <key>NSPhotoLibraryUsageDescription</key>
+	<key>NSCameraUsageDescription</key>
+	<key>NSMicrophoneUsageDescription</key> -->
+	<!-- End camera  -->
 	<string></string>
 	<key>UIAppFonts</key>
 	<array>
