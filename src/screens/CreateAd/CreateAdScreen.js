@@ -1,6 +1,14 @@
-import {KeyboardAvoidingView, StyleSheet, Text, View} from 'react-native';
+import {
+  Alert,
+  KeyboardAvoidingView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import React, {useState} from 'react';
 import {Button, TextInput} from 'react-native-paper';
+import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
 
 const CreateAdScreen = () => {
   const [name, setName] = useState('');
@@ -8,6 +16,43 @@ const CreateAdScreen = () => {
   const [year, setYear] = useState('');
   const [price, setPrice] = useState('');
   const [phone, setPhone] = useState('');
+  const [image, setImage] = useState('');
+
+  const postData = async () => {
+    if (!name || !desc || !year || !price || !phone) {
+      Alert.alert('', 'Please fill all the fields');
+    } else {
+      const usersCollection = firestore().collection('ads');
+      try {
+        let result = await usersCollection.add({
+          name,
+          desc,
+          year,
+          price,
+          phone,
+          image:
+            'https://images.unsplash.com/photo-1640437830863-8f7f38327319?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80',
+          uid: auth().currentUser.uid,
+        });
+        Alert.alert('', 'Ad posted!', [
+          {
+            text: 'OK',
+            onPress: () => {
+              setName('');
+              setDesc('');
+              setYear('');
+              setPrice('');
+              setPhone('');
+              setImage('');
+            },
+          },
+        ]);
+      } catch (error) {
+        console.log(error);
+        Alert.alert('', 'Something went wrong. Try again');
+      }
+    }
+  };
 
   return (
     <>
@@ -56,7 +101,7 @@ const CreateAdScreen = () => {
           onPress={() => console.log('Pressed')}>
           Upload Image
         </Button>
-        <Button mode="contained" onPress={() => console.log('Pressed')}>
+        <Button mode="contained" onPress={() => postData()}>
           Post
         </Button>
       </View>
