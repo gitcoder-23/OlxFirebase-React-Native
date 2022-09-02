@@ -36,11 +36,14 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-
-	<!-- for react-native-image-picker camera -->
-	<!-- <key>NSPhotoLibraryUsageDescription</key>
+	<!-- for react-native-image-crop-picker -->
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>OLX Firebase app requires photo library access.</string>
 	<key>NSCameraUsageDescription</key>
-	<key>NSMicrophoneUsageDescription</key> -->
+	<string>OLX Firebase app requires camera access.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>OLX Firebase app requires microphone access.</string>
+
 	<!-- End camera  -->
 	<string></string>
 	<key>UIAppFonts</key>

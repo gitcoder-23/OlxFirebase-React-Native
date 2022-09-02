@@ -53,6 +53,6 @@ service cloud.firestore {
 
 // firebase issues
 https://github.com/invertase/react-native-firebase/issues/6382
-
+https://firebase.google.com/docs/storage
 
 

@@ -148,6 +148,8 @@ android {
         buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
         // after adding firebase firestore
         multiDexEnabled true
+        // for react-native-image-crop-picker
+        vectorDrawables.useSupportLibrary = true
 
 
         if (isNewArchitectureEnabled()) {
