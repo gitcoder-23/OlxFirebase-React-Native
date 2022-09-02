@@ -9,6 +9,8 @@ import React, {useState} from 'react';
 import {Button, TextInput} from 'react-native-paper';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
+import storage from '@react-native-firebase/storage';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 
 const CreateAdScreen = () => {
   const [name, setName] = useState('');
@@ -54,6 +56,12 @@ const CreateAdScreen = () => {
     }
   };
 
+  const openCamera = () => {
+    launchCamera({quality: 0.5}, fileObj => {
+      console.log('fileObj->', fileObj);
+    });
+  };
+
   return (
     <>
       {/* <KeyboardAvoidingView behavior="position" style={styles.container}> */}
@@ -95,10 +103,7 @@ const CreateAdScreen = () => {
           value={phone}
           onChangeText={text => setPhone(text)}
         />
-        <Button
-          icon="camera"
-          mode="contained"
-          onPress={() => console.log('Pressed')}>
+        <Button icon="camera" mode="contained" onPress={() => openCamera()}>
           Upload Image
         </Button>
         <Button mode="contained" onPress={() => postData()}>
